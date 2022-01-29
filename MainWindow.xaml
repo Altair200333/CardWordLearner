@@ -1,0 +1,54 @@
+﻿<Window x:Class="WordLearner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordLearner"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="601.5" Width="951.5"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center">
+            <materialDesign:Card Padding="13" Margin="16">
+                <TextBlock HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Words</TextBlock>
+            </materialDesign:Card>
+            <materialDesign:Card Padding="13" Margin="16" Width="600">
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center"  Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Current word</TextBlock>
+                    <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"> </TextBlock>
+
+                    <materialDesign:Card Padding="13" Margin="16">
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Translations</TextBlock>
+                            <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"> </TextBlock>
+                            <Grid HorizontalAlignment="Center" Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Button Margin="2" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #1</Button>
+                                <Button Margin="2" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #2</Button>
+                                <Button Margin="2" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #3</Button>
+                                <Button Margin="2" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #4</Button>
+                            </Grid>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+    </Grid>
+</Window>

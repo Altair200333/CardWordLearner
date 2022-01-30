@@ -107,12 +107,12 @@ namespace WordLearner
             var existing = table.Rows.Find(translation.word);
 
             DataRow newRow = existing ?? table.NewRow();
-            
+            int count = Math.Min(translation.translations.Count, maxVariantsCount);
             newRow["word"] = translation.word;
-            newRow["count"] = translation.translations.Count;
+            newRow["count"] = count;
             newRow["memory"] = 0;
 
-            for (int i = 0; i < translation.translations.Count; i++)
+            for (int i = 0; i < count; i++)
             {
                 string id = "v" + (i + 1);
                 newRow[id] = translation.translations[i];

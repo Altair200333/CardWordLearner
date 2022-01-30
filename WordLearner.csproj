@@ -149,6 +149,7 @@
     <Compile Include="DbManager.cs" />
     <Compile Include="MicrosoftTranslatorApi.cs" />
     <Compile Include="TranslatedWord.cs" />
+    <Compile Include="Utils.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

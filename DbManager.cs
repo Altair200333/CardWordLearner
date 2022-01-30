@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -88,9 +90,9 @@ namespace WordLearner
             builder.DataAdapter = adapter;
 
             // Get the insert, update and delete commands.
-            adapter.InsertCommand = builder.GetInsertCommand(true);
-            adapter.UpdateCommand = builder.GetUpdateCommand(true);
-            adapter.DeleteCommand = builder.GetDeleteCommand(true);
+            adapter.InsertCommand = builder.GetInsertCommand();
+            adapter.UpdateCommand = builder.GetUpdateCommand();
+            adapter.DeleteCommand = builder.GetDeleteCommand();
             
             table = new DataTable();
             adapter.Fill(table);
@@ -105,7 +107,7 @@ namespace WordLearner
             var existing = table.Rows.Find(translation.word);
 
             DataRow newRow = existing ?? table.NewRow();
-
+            
             newRow["word"] = translation.word;
             newRow["count"] = translation.translations.Count;
             newRow["memory"] = 0;
@@ -149,9 +151,21 @@ namespace WordLearner
             command.ExecuteNonQuery();
             //table.Rows.Clear();
         }
-        public int flushTranslations()
+
+        public void flushTranslations()
         {
-            return adapter.Update(table);
+            try
+            {
+                adapter.Update(table);
+                table.AcceptChanges();
+                adapter.Update(table);
+
+                adapter.Fill(table);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         public void Dispose()

@@ -31,16 +31,44 @@ namespace WordLearner
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string key = "c1207a4441224386aaced999f5aeb646";
-        private string location = "eastasia";
-        private static readonly string endpoint = "https://api.cognitive.microsofttranslator.com/";
+        private DbManager manager;
 
         public MainWindow()
         {
             InitializeComponent();
             Console.OutputEncoding = Encoding.UTF8;
-            DbManager manager = new DbManager();
+            manager = new DbManager();
+            manager.init();
 
+            longTask();
+            
+            //def();
+        }
+
+        async void longTask()
+        {
+            Console.WriteLine("checkDatabase");
+
+            var res = await HeavyMethodAsync();
+
+            Console.WriteLine("ended");
+        }
+        async Task<List<TranslatedWord>> HeavyMethodAsync()
+        {
+            var items = manager.getTranslations();
+            if (items.Count == 0)
+            {
+                items = await getTranslations();
+            }
+            else
+            {
+                
+            }
+
+            return items;
+        }
+        private static void test(DbManager manager)
+        {
             manager.init();
             manager.clear();
             manager.flushTranslations();
@@ -54,9 +82,9 @@ namespace WordLearner
             manager.addTranslation(new TranslatedWord()
             {
                 word = "kurwa",
-                translations = new List<string>(){"da"},
+                translations = new List<string>() {"da"},
             });
-            
+
             manager.flushTranslations();
 
             manager.setMemory("kurwa", 3.0f);
@@ -64,11 +92,9 @@ namespace WordLearner
             manager.flushTranslations();
 
             items = manager.getTranslations();
-            
-            //def();
         }
 
-        async void def()
+        async Task<List<TranslatedWord>> getTranslations()
         {
             ConcurrentBag<TranslatedWord> translations = new ConcurrentBag<TranslatedWord>();
             MicrosoftTranslatorApi.init();
@@ -80,14 +106,17 @@ namespace WordLearner
                 words.Add(line);
             }
 
-            Parallel.ForEach(words, async (word) =>
+            await Task.WhenAll(words.Select(x=>JobDispatcher(translations, x)));
+
+            return translations.ToList();
+        }
+        static async Task JobDispatcher(ConcurrentBag<TranslatedWord> translations, string word)
+        {
+            var res = await MicrosoftTranslatorApi.translate(word).ConfigureAwait(false);
+            if (res != null)
             {
-                var res = await MicrosoftTranslatorApi.translate(word).ConfigureAwait(false);
-                if (res != null)
-                {
-                    translations.Add(res);
-                }
-            });
+                translations.Add(res);
+            }
         }
     }
 }

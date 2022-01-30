@@ -21,29 +21,30 @@
             </materialDesign:Card>
             <materialDesign:Card Padding="13" Margin="16" Width="600">
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center"  Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Current word</TextBlock>
+                    <TextBlock Name="currentWord" HorizontalAlignment="Center"  Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Current word</TextBlock>
                     <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"> </TextBlock>
 
                     <materialDesign:Card Padding="13" Margin="16">
                         <StackPanel>
-                            <TextBlock HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Translations</TextBlock>
+                            <TextBlock Name="status" HorizontalAlignment="Center" Style="{DynamicResource MaterialDesignHeadline6TextBlock}">Translations</TextBlock>
                             <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}"> </TextBlock>
                             <Grid HorizontalAlignment="Center" Margin="5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
 
-                                <Button Margin="2" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #1</Button>
-                                <Button Margin="2" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #2</Button>
-                                <Button Margin="2" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #3</Button>
-                                <Button Margin="2" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #4</Button>
+                                <Button Name="v1" Margin="2" Grid.Row="0" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #1</Button>
+                                <Button Name="v2" Margin="2" Grid.Row="0" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #2</Button>
+                                <Button Name="v3" Margin="2" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #3</Button>
+                                <Button Name="v4" Margin="2" Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #4</Button>
+                                <Button Name="v5" Margin="2" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #3</Button>
+                                <Button Name="v6" Margin="2" Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignRaisedButton}">Variant #4</Button>
                             </Grid>
                         </StackPanel>
                     </materialDesign:Card>

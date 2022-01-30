@@ -88,10 +88,10 @@ namespace WordLearner
             builder.DataAdapter = adapter;
 
             // Get the insert, update and delete commands.
-            adapter.InsertCommand = builder.GetInsertCommand();
-            adapter.UpdateCommand = builder.GetUpdateCommand();
-            adapter.DeleteCommand = builder.GetDeleteCommand();
-
+            adapter.InsertCommand = builder.GetInsertCommand(true);
+            adapter.UpdateCommand = builder.GetUpdateCommand(true);
+            adapter.DeleteCommand = builder.GetDeleteCommand(true);
+            
             table = new DataTable();
             adapter.Fill(table);
 
@@ -103,7 +103,6 @@ namespace WordLearner
         public void addTranslation(TranslatedWord translation)
         {
             var existing = table.Rows.Find(translation.word);
-
 
             DataRow newRow = existing ?? table.NewRow();
 
@@ -140,9 +139,19 @@ namespace WordLearner
             return false;
         }
 
-        public void flushTranslations()
+        public void clear()
         {
-            adapter.Update(table);
+            string sqlTrunc = "TRUNCATE TABLE Translations";
+            DbCommand command = factory.CreateCommand();
+            command.Connection = connection;
+            command.CommandText = sqlTrunc;
+
+            command.ExecuteNonQuery();
+            //table.Rows.Clear();
+        }
+        public int flushTranslations()
+        {
+            return adapter.Update(table);
         }
 
         public void Dispose()

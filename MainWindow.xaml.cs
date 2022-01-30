@@ -42,6 +42,15 @@ namespace WordLearner
             DbManager manager = new DbManager();
 
             manager.init();
+            manager.clear();
+            manager.flushTranslations();
+            var items = manager.getTranslations();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.WriteLine(items[i].word);
+            }
+
             manager.addTranslation(new TranslatedWord()
             {
                 word = "kurwa",
@@ -50,13 +59,11 @@ namespace WordLearner
             
             manager.flushTranslations();
 
-            manager.setMemory("kurwa", 2.0f);
+            manager.setMemory("kurwa", 3.0f);
 
             manager.flushTranslations();
 
-
-
-            var items = manager.getTranslations();
+            items = manager.getTranslations();
             
             //def();
         }

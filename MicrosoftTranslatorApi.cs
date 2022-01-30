@@ -42,7 +42,7 @@ namespace WordLearner
         }
 
         public static async Task<TranslatedWord> translate(string word, string from = "en", string to = "ru",
-            float confidence = 0.15f)
+            float confidence = 0.35f)
         {
             TranslatedWord translation = new TranslatedWord();
 
@@ -63,6 +63,10 @@ namespace WordLearner
             translation.translations = result.translations.Where(x => x.confidence > confidence)
                 .Select(x => x.displayTarget).ToList();
 
+            if (translation.translations.Count == 0 && result.translations.Count > 0)
+            {
+                translation.translations.Add(result.translations[0].displayTarget);
+            }
             return translation;
         }
 

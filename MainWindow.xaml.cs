@@ -227,7 +227,6 @@ namespace WordLearner
             return items;
         }
         
-        object locker = new  object();
         private int counter = 0;
         private int totalWords = 0;
 
@@ -265,7 +264,7 @@ namespace WordLearner
             Interlocked.Increment(ref counter);
             Title.Dispatcher.Invoke(() =>
             {
-                Title.Text = ((float)counter / totalWords).ToString("0.00");
+                Title.Text = "Loaded: " + ((float)counter / totalWords * 100.0f).ToString("0.00") + "%";
 
             });
         }

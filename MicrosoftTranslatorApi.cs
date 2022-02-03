@@ -30,6 +30,7 @@ namespace WordLearner
         private MicrosoftTranslatorApi()
         {
             client = new HttpClient();
+            client.Timeout = TimeSpan.FromMinutes(5);
         }
 
         public static void Dispose()
@@ -117,7 +118,7 @@ namespace WordLearner
                     HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
                     return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 }
-                catch (TaskCanceledException e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e);
                     throw;

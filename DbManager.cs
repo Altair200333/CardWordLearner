@@ -123,7 +123,7 @@ namespace WordLearner
                 table.Rows.Add(newRow);
             }
 
-            table.Select("word='" + translation.word + "'");
+            //table.Select("word='" + translation.word + "'");
         }
 
         public bool setMemory(string key, float value)

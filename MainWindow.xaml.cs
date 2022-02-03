@@ -239,7 +239,10 @@ namespace WordLearner
 
             foreach (string line in System.IO.File.ReadLines(fileName))
             {
-                words.Add(line);
+                if (line.Length > 1)
+                {
+                    words.Add(line);
+                }
             }
 
             counter = 0;
@@ -250,13 +253,22 @@ namespace WordLearner
         }
         async Task JobDispatcher(ConcurrentBag<TranslatedWord> translations, string word)
         {
-            var res = await MicrosoftTranslatorApi.translate(word).ConfigureAwait(false);
-            if (res != null)
+            try
             {
-                translations.Add(res);
+                var res = await MicrosoftTranslatorApi.translate(word).ConfigureAwait(false);
+                if (res != null)
+                {
+                    translations.Add(res);
+                }
             }
-
-            report();
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            finally
+            {
+                report();
+            }
         }
 
         async void report()
